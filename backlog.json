@@ -1,0 +1,50 @@
+[
+  {
+    "ref": "B1",
+    "type": "Story",
+    "summary": "Create a valid customer support request",
+    "epic": "Customer Support",
+    "owner": "Atharva",
+    "acceptance": "Valid name and message create an Open request; invalid data shows a clear error."
+  },
+  {
+    "ref": "B2",
+    "type": "Task",
+    "summary": "Implement support request validation",
+    "epic": "Customer Support",
+    "owner": "Utsav",
+    "acceptance": "Names use 2 to 80 trimmed characters; messages use 10 to 1000 trimmed characters."
+  },
+  {
+    "ref": "B3",
+    "type": "Task",
+    "summary": "Persist, filter, and close requests",
+    "epic": "Customer Support",
+    "owner": "Mohit",
+    "acceptance": "Requests survive refresh in one browser; filters match status; close retains request details."
+  },
+  {
+    "ref": "B4",
+    "type": "Story",
+    "summary": "Read support FAQs",
+    "epic": "Customer Support",
+    "owner": "Utsav",
+    "acceptance": "Keyboard users can expand and collapse help answers."
+  },
+  {
+    "ref": "B5",
+    "type": "Task",
+    "summary": "Test and build the website automatically",
+    "epic": "Delivery Automation",
+    "owner": "Mohit",
+    "acceptance": "Tests and build execute on pull requests; a failure stops delivery."
+  },
+  {
+    "ref": "B6",
+    "type": "Task",
+    "summary": "Deploy and verify the increment",
+    "epic": "Delivery Automation",
+    "owner": "Atharva",
+    "acceptance": "A reviewed passing change on main deploys to a reachable GitHub Pages URL."
+  }
+]

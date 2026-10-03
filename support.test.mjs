@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { createRequest, closeRequest, filterRequests } from './support.mjs';
+test('creates an open request and trims whitespace', () => assert.deepEqual(createRequest(' Atharva ', ' Please help with my order. '), { name:'Atharva', message:'Please help with my order.', status:'Open' }));
+test('rejects missing or short names', () => { for (const name of ['', 'A', null]) assert.throws(() => createRequest(name, 'A valid support message')); });
+test('rejects missing or short messages', () => { for (const message of ['', 'short', null]) assert.throws(() => createRequest('Utsav', message)); });
+test('enforces maximum field lengths', () => { assert.throws(() => createRequest('a'.repeat(81), 'A valid support message')); assert.throws(() => createRequest('Mohit','a'.repeat(1001))); });
+test('accepts boundary field lengths', () => assert.equal(createRequest('ab', 'x'.repeat(10)).status, 'Open'));
+test('closes a request without mutating the original', () => { const original = createRequest('Mohit', 'A valid support message'); assert.equal(closeRequest(original).status,'Closed'); assert.equal(original.status,'Open'); });
+test('closing a closed request is safe', () => { const r = {name:'Utsav',message:'A valid support message',status:'Closed'}; assert.deepEqual(closeRequest(r), r); });
+test('rejects invalid request states', () => { assert.throws(() => closeRequest(null)); assert.throws(() => closeRequest({status:'Unknown'})); });
+test('filters open and closed requests', () => { const rows = [{status:'Open'}, {status:'Closed'}]; assert.equal(filterRequests(rows,'Open').length,1); assert.equal(filterRequests(rows,'Closed')[0].status,'Closed'); assert.equal(filterRequests(rows).length,2); });
+test('rejects unknown filter values', () => assert.throws(() => filterRequests([], 'Unknown')));
